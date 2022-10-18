@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn {
+	color: inherit;
+	padding: 25px;
+    border: 1px dashed black;
+    margin: 20px;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.buttons {
+    display: flex;
+}
+
+.vsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 535px;
+    height: 200px;
+}
+
+.vsContainer > p {
+    margin: 0px;
+}
+
+#score {
+    display: flex;
+    margin: 0px;
+    align-items: center;
+}
+
+#score > p {
+    margin: 0;
+}
+
+#fight, #result, #score, #weaponText, #newGameButton{
+    margin-top: 40px;
+}
+
+#playerScore, #computerScore {
+    font-size: 50px;
+    padding: 5px;
+}
+
+.newGameButtonActive {
+	color: black;
+	padding: 25px;
+    border: 1px dashed black;
+    margin: 20px;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.newGameButtonInactive {
+	color: rgb(180, 180, 180);
+	padding: 25px;
+    border: 1px dotted rgb(180, 180, 180);
+    margin: 20px;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}

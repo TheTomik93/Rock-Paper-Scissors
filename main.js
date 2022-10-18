@@ -1,10 +1,8 @@
-/*getComputerChoice - returns R P S randomly
-getPlayerChoice - user selection - case insensitive -promtem
-
-function playRound(playerSelection, computerSelection)
-- returns result of the round
-
-function game() - petikolova hra, pocita score, loguje winnera a stav
+/*
+Pri patem bodu disable buttony ---- neni to button ale DIV
+--- remove event listener, ale asi musim tu funkci predefinovat, at to neni function(e) ale nejaka pojmenovana funkce....
+Zobrazit button "new game"
+New game vymaze choice, score, text logy, etc...
 */
 
 let computerScore = 0;
@@ -13,17 +11,89 @@ let lastRoundWinner = 0;
 let computerChoice = "";
 let playerChoice = "";
 
-game();
+const buttons = document.querySelectorAll(".btn");
+let resultTxt = document.getElementById("result");
+let txt = document.getElementById("fight");
+let newGameButton = document.getElementById("newGameButton");
 
-function game(){
-    for (let i=0; i<3; i++){
-        getComputerChoice();
-        getPlayerChoice();
-        playRound(computerChoice, playerChoice);
-        computerScoreUpdate(lastRoundWinner);
-        playerScoreUpdate(lastRoundWinner);
-        reportScore(computerChoice, playerChoice, computerScore, playerScore);
-    };
+for (const btn of buttons){
+    btn.addEventListener('click', function(e) {
+        startRound(e.target.id);
+    })
+}
+
+newGameButton.addEventListener("click", newGame);
+
+function newGame(){
+    computerScore = 0;
+    playerScore = 0;
+    lastRoundWinner = 0;
+    computerChoice = "";
+    playerChoice = "";
+    toggleNewGameButton();
+    updateScore();
+    resultTxt.textContent = "";
+    txt.textContent=``;
+}
+
+function startRound(x){
+    if (playerScore === 5 || computerScore === 5){
+        return;
+    }
+    getPlayerChoice(x);
+    getComputerChoice();
+    updateFightText();
+    playRound(computerChoice, playerChoice);
+    computerScoreUpdate(lastRoundWinner);
+    playerScoreUpdate(lastRoundWinner);
+    reportScore(computerChoice, playerChoice, computerScore, playerScore);
+    updateScore();
+    updateResult();
+    isGameOver();
+    toggleNewGameButton();
+}
+
+function toggleNewGameButton(){
+    if (playerScore === 5 || computerScore === 5){
+        newGameButton.classList.remove("newGameButtonInactive");
+        newGameButton.classList.add("newGameButtonActive");
+    } else {
+        newGameButton.classList.remove("newGameButtonActive");
+        newGameButton.classList.add("newGameButtonInactive");
+    }
+}
+
+function isGameOver(){
+    if (playerScore === 5){
+        resultTxt.textContent = "GAME OVER! YOU WIN!";
+    }
+    else if (computerScore === 5){
+        resultTxt.textContent = "GAME OVER! COMPUTER WINS!";
+    }
+}
+
+function updateResult(){
+    if (lastRoundWinner === 0){
+        resultTxt.textContent = "Computer won this round!";
+    }
+    else if (lastRoundWinner === 1){
+        resultTxt.textContent = "You won this round!";
+    }
+    else{
+        resultTxt.textContent = "This round ends in draw!";
+    }
+}
+
+function updateScore(){
+    let plrScr = document.getElementById("playerScore");
+    let pcScr = document.getElementById("computerScore");
+
+    plrScr.textContent = playerScore;
+    pcScr.textContent = computerScore;
+}
+
+function updateFightText(){
+    txt.textContent=`You chose ${playerChoice}, computer chose ${computerChoice}`;
 }
 
 function getComputerChoice(){
@@ -46,8 +116,8 @@ function getComputerChoice(){
     return computerChoice;
 }
 
-function getPlayerChoice(){
-    playerChoice = prompt().toUpperCase();
+function getPlayerChoice(x){
+    playerChoice = x;
 
     if  (playerChoice == "ROCK" || 
         playerChoice == "PAPER" || 
@@ -104,7 +174,6 @@ function playRound(computerChoice, playerChoice){
             lastRoundWinner = 0;
         }
     }
-    console.log(lastRoundWinner);
     return lastRoundWinner;
 }
 
@@ -120,8 +189,6 @@ function playerScoreUpdate(lastRoundWinner){
 }
 
 function computerScoreUpdate(lastRoundWinner){
-    console.log(lastRoundWinner);
-
     if(lastRoundWinner == 0){
         computerScore++;
         console.log("COMPUTER SCORE INCREASED BY ONE");
