@@ -1,10 +1,3 @@
-/*
-Pri patem bodu disable buttony ---- neni to button ale DIV
---- remove event listener, ale asi musim tu funkci predefinovat, at to neni function(e) ale nejaka pojmenovana funkce....
-Zobrazit button "new game"
-New game vymaze choice, score, text logy, etc...
-*/
-
 let computerScore = 0;
 let playerScore = 0;
 let lastRoundWinner = 0;
